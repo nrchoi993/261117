@@ -1,0 +1,12 @@
+{
+  "scanned": "2026-11-17",
+  "findings": {
+    "framework": "Vanilla JavaScript, Vite; package.json:5",
+    "entry": "Root index.html, src/main.js imports src/style.css",
+    "fonts": "Vite starter system fonts; no established product identity",
+    "palette": "Vite starter; user selected warm cream and green",
+    "material": "Student fields, six food preferences, real chat controls; no supplied photos or logos"
+  },
+  "preserve": ["Vite default entry and output", "ES modules", "CSS imported by JavaScript"],
+  "introduce": ["Korean dinner consultation screen", "Cream and green tokens", "Responsive form and chat split"]
+}

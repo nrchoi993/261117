@@ -1,0 +1,18 @@
+[
+  {
+    "date": "2026-11-17",
+    "scope": "app",
+    "shape": "app screen",
+    "theme": "ribbon",
+    "axes": "light/grotesk-sans/chromatic-green",
+    "nav": "compact top bar",
+    "footer": "quiet text row",
+    "signature": "Food preference checklist beside a dinner chat",
+    "imagery": "Product controls; no photography needed",
+    "photos": [],
+    "sections": ["profile and preferences", "API connection", "chat", "survey submission"],
+    "waived": [],
+    "prompt": "Student dinner chatbot with Responses API and Google Form submission",
+    "review": "In-thread: desktop and mobile screenshots inspected; textarea boundary contrast fixed. Render sweep: 0 FAIL, 0 WARN, 1 answered F4. Mocked Chrome interaction checks passed; 6 viewport widths without overflow. No delegated agent. Live OpenAI and Google Form storage remain unverified."
+  }
+]

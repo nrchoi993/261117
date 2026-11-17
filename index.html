@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="좋아하는 음식을 고르고 식탁 도우미와 오늘 저녁 메뉴를 정해 보세요." />
+    <title>오늘의 식탁 | 저녁 메뉴 상담</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <header class="site-header">
+        <a class="wordmark" href="./" aria-label="오늘의 식탁 홈">
+          <svg class="brand-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 4v8m4-8v8M4 4v7a4 4 0 0 0 8 0V4M8 15v13M25 4c-5 3-7 8-7 13h7m0-13v24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          오늘의 식탁
+        </a>
+        <span class="header-caption">당신의 취향으로 차리는 저녁</span>
+      </header>
+      <main>
+        <div class="page-heading">
+          <div><h1>오늘 저녁, 무엇을 먹을까요?</h1><p>좋아하는 음식을 알려주면, 오늘에 어울리는 메뉴를 함께 찾아드려요.</p></div>
+          <ol class="steps" aria-label="상담 진행 단계">
+            <li aria-current="step"><span class="step-number">1</span>취향 선택</li>
+            <li><span class="step-number">2</span>메뉴 상담</li>
+            <li><span class="step-number">3</span>설문 전송</li>
+          </ol>
+        </div>
+        <div class="workspace">
+          <section class="intake" aria-labelledby="intake-title">
+            <div class="section-heading"><h2 id="intake-title">먼저, 당신의 취향부터</h2><span class="required-label">모든 항목 필수</span></div>
+            <form id="intake-form">
+              <fieldset id="profile-fields" class="profile-fields">
+                <legend class="visually-hidden">학생 정보와 음식 취향</legend>
+                <div class="identity-fields">
+                  <div class="field"><label for="student-id">학번</label><input id="student-id" name="studentId" type="text" placeholder="예: 20260101" maxlength="30" pattern=".*\S.*" required autocomplete="off" /></div>
+                  <div class="field"><label for="student-name">이름</label><input id="student-name" name="studentName" type="text" placeholder="이름을 입력해 주세요" maxlength="40" pattern=".*\S.*" required autocomplete="name" /></div>
+                </div>
+                <fieldset class="food-fieldset" aria-describedby="food-hint food-error">
+                  <legend>좋아하는 음식 <span id="food-count">0개 선택</span></legend>
+                  <p id="food-hint" class="helper">좋아하는 만큼 골라 주세요. 여러 개 선택할 수 있어요.</p>
+                  <div class="food-options">
+                    <label class="food-option"><input type="checkbox" name="food" value="한식" /><span>한식</span><span class="food-example">비빔밥, 김치찌개</span></label>
+                    <label class="food-option"><input type="checkbox" name="food" value="중식" /><span>중식</span><span class="food-example">짜장면, 마라탕</span></label>
+                    <label class="food-option"><input type="checkbox" name="food" value="일식" /><span>일식</span><span class="food-example">초밥, 돈카츠</span></label>
+                    <label class="food-option"><input type="checkbox" name="food" value="양식" /><span>양식</span><span class="food-example">파스타, 피자</span></label>
+                    <label class="food-option"><input type="checkbox" name="food" value="분식" /><span>분식</span><span class="food-example">떡볶이, 김밥</span></label>
+                    <label class="food-option"><input type="checkbox" name="food" value="샐러드" /><span>샐러드</span><span class="food-example">포케, 채소 볼</span></label>
+                  </div>
+                  <p id="food-error" class="error-text" role="alert" hidden>음식을 한 가지 이상 선택해 주세요.</p>
+                </fieldset>
+                <label class="consent"><input id="consent" type="checkbox" required /><span>상담 종료 시 학번, 이름, 음식 취향, 전체 대화를 Google Form으로 전송하는 데 동의해요.</span></label>
+              </fieldset>
+              <div class="connection-section">
+                <div class="field"><label for="api-key">OpenAI API Key</label>
+                  <div class="key-input"><input id="api-key" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false" autocapitalize="none" aria-describedby="key-help connection-status" /><button id="toggle-key" class="text-button" type="button" aria-controls="api-key" aria-pressed="false">보기</button></div>
+                </div>
+                <div class="connection-row"><p id="connection-status" class="connection-status" role="status" data-status="idle">API Key를 입력해 주세요.</p><button id="connect-button" class="button button--small" type="button" disabled>연결 확인</button></div>
+                <p id="key-help" class="helper">키는 이 화면에서만 사용하며 저장하거나 설문에 보내지 않아요. 연결 확인 시 소량의 API 사용료가 발생해요.</p>
+              </div>
+              <button id="start-button" class="button button--primary start-button" type="submit" disabled>채팅하기 <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <p id="start-hint" class="helper start-hint">학생 정보와 음식 취향을 입력하고 전송 안내에 동의해 주세요.</p>
+            </form>
+          </section>
+          <section class="chat" aria-labelledby="chat-title">
+            <div class="chat-heading"><div class="chat-heading-title"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 18 3 21v-8a9 9 0 1 1 4 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10h8m-8 4h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><h2 id="chat-title">식탁 도우미</h2></div><span id="chat-status" class="chat-status" role="status">시작 대기</span></div>
+            <p id="profile-summary" class="profile-summary" hidden></p>
+            <div id="chat-empty" class="chat-empty">
+              <span class="empty-symbol" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M5 26h30M8 25a12 12 0 0 1 24 0M20 10V7m-3 0h6M8 31h24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+              <h3>오늘의 메뉴, 같이 골라요.</h3>
+              <p>학생 정보와 좋아하는 음식을 입력하고<br />채팅하기를 누르면 상담이 시작돼요.</p>
+              <span class="empty-note">예산부터 맵기까지, 편하게 이야기해 주세요.</span>
+            </div>
+            <div id="conversation" class="conversation" hidden>
+              <div id="messages" class="messages" role="log" aria-label="상담 대화 내용" aria-live="polite" aria-relevant="additions"></div>
+              <p id="typing-status" class="typing-status" role="status" hidden>식탁 도우미가 메뉴를 생각하고 있어요…</p>
+            </div>
+            <div class="chat-bottom">
+              <p id="chat-error" class="error-text" role="alert" hidden></p>
+              <div class="prompt-suggestions" aria-label="질문 예시"><span>이렇게 물어보세요</span><button type="button" data-prompt="1만 원 이내로 먹을 수 있는 저녁 메뉴를 추천해 주세요." disabled>1만 원 이내로</button><button type="button" data-prompt="맵지 않고 든든한 저녁 메뉴가 좋겠어요." disabled>맵지 않은 메뉴</button></div>
+              <form id="chat-form" class="composer">
+                <label class="visually-hidden" for="message-input">식탁 도우미에게 보낼 메시지</label><textarea id="message-input" rows="2" maxlength="3000" placeholder="오늘 먹고 싶은 메뉴나 예산을 알려 주세요." disabled></textarea>
+                <button id="send-button" class="button button--primary send-button" type="submit" aria-label="메시지 보내기" disabled><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 16V4m-5 5 5-5 5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </form>
+              <div class="chat-meta"><span id="chat-progress">대화 0회 완료</span><span>Enter 전송 / Shift + Enter 줄바꿈</span></div>
+              <div class="finish-area"><p id="finish-hint" class="helper" hidden></p><button id="finish-button" class="button finish-button" type="button" hidden>상담 종료하기</button></div>
+              <p id="submission-status" class="submission-status" role="status" hidden></p>
+              <button id="restart-button" class="button restart-button" type="button" hidden>새 상담 시작하기</button>
+            </div>
+          </section>
+        </div>
+        <p class="page-note">추천 메뉴는 참고용이에요. 알레르기나 피하는 재료가 있다면 대화 중에 알려 주세요.</p>
+      </main>
+      <footer class="site-footer"><span>오늘의 식탁</span><span>취향을 나누고, 저녁을 정해요.</span></footer>
+    </div>
+    <noscript><p>상담과 설문 전송을 사용하려면 브라우저의 JavaScript를 켜 주세요.</p></noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
